@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dax6rn416tc8o"]
+
+[ext_resource type="Script" uid="uid://u58ggr0sgl8l" path="res://50-components-course/SceneSpawner/scene_spawner.gd" id="1_cemk7"]
+
+[node name="SceneSpawner" type="Node" unique_id=1144487936]
+script = ExtResource("1_cemk7")

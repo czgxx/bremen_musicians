@@ -1,0 +1,226 @@
+## 📝 **Godot 多人游戏窗口调试全记录**
+
+### 🎯 **问题描述**
+在开发多人纸牌游戏时，需要同时启动多个游戏实例（服务器+客户端）进行测试，但遇到了窗口大小不一致、位置无法调整的问题。
+
+---
+
+## 🔍 **调试过程记录**
+
+### **阶段1：初步尝试 - 基础窗口设置**
+
+```gdscript
+# 最初的尝试
+func _ready():
+	var window = get_window()
+	window.size = Vector2i(1152, 648)
+	window.position = Vector2i(50, 50)  # 不生效！
+```
+
+**发现的问题**：
+- 客户端窗口大小和位置正常
+- 服务器窗口（第一个实例）大小和位置无法改变
+- 但窗口标题可以正常修改
+
+---
+
+### **阶段2：诊断问题**
+
+```gdscript
+# 诊断代码
+func _diagnose_window():
+	var window = get_window()
+	print("窗口ID: ", window.get_window_id())
+	print("是否嵌入编辑器: ", Engine.is_embedded_in_editor())
+	print("窗口模式: ", window.mode)
+	print("窗口大小: ", window.size)
+	print("窗口位置: ", window.position)
+```
+
+**关键发现**：
+- 第一个窗口的 `window_id = -1` （嵌入窗口标识）
+- 错误信息：**"Embedded window can't be moved"**
+
+---
+
+### **阶段3：解决方案演化**
+
+#### **方案A：使用命令行参数区分实例**
+
+```gdscript
+# 在编辑器设置中：
+# 调试 → 自定义运行实例 → 实例1添加 --server
+# 实例2保持空白（自动成为客户端）
+
+func _ready():
+	var args = OS.get_cmdline_args()
+	var is_server = "--server" in args
+	var window = get_window()
+	
+	window.size = Vector2i(1152, 648)
+	
+	if is_server:
+		window.position = Vector2i(50, 50)
+		window.title = "服务器"
+	else:
+		window.position = Vector2i(50 + 1152 + 50, 50)
+		window.title = "客户端"
+```
+
+**问题**：第一个实例（服务器）仍然是嵌入窗口，位置无法移动
+
+---
+
+#### **方案B：检测嵌入窗口并跳过**
+
+```gdscript
+func _setup_window():
+	var window = get_window()
+	var is_embedded = (window.get_window_id() == -1)
+	
+	window.size = Vector2i(1152, 648)
+	
+	if is_embedded:
+		window.mode = Window.MODE_MINIMIZED  # 最小化嵌入窗口
+		window.title = "嵌入窗口 - 最小化"
+		return
+	
+	# 独立窗口可以正常设置位置
+	var args = OS.get_cmdline_args()
+	if "--server" in args:
+		window.position = Vector2i(50, 50)
+		window.title = "服务器"
+	else:
+		window.position = Vector2i(50 + 1152 + 50, 50)
+		window.title = "客户端"
+```
+
+---
+
+#### **方案C：最终解决方案 - 绕过第一个窗口**
+
+```gdscript
+extends Node
+
+const WINDOW_WIDTH := 1152
+const WINDOW_HEIGHT := 648
+
+func _ready():
+	# 等待窗口初始化
+	await get_tree().process_frame
+	_setup_window_by_instance()
+
+func _setup_window_by_instance():
+	var window = get_window()
+	var args = OS.get_cmdline_args()
+	
+	# 检测是否是嵌入窗口
+	var is_embedded = (window.get_window_id() == -1)
+	
+	# 统一设置窗口大小
+	window.size = Vector2i(WINDOW_WIDTH, WINDOW_HEIGHT)
+	await get_tree().process_frame
+	
+	if is_embedded:
+		# 第一个实例（嵌入窗口）- 最小化处理
+		window.mode = Window.MODE_MINIMIZED
+		window.title = "纸牌游戏 - 后台实例"
+		print("嵌入窗口已最小化")
+		return
+	
+	# 第二、三个实例（独立窗口）- 根据命令行参数分配角色
+	if "--server" in args:
+		# 服务器窗口（左上方）
+		window.position = Vector2i(50, 50)
+		window.title = "纸牌游戏 - 服务器"
+		print("服务器窗口已设置")
+		_start_as_server()
+	else:
+		# 客户端窗口（右上方，与服务器窗口并排）
+		var client_x = 50 + WINDOW_WIDTH + 50
+		var screen_size = DisplayServer.screen_get_size()
+		# 边界检查，防止超出屏幕
+		if client_x + WINDOW_WIDTH > screen_size.x:
+			client_x = 50
+		window.position = Vector2i(client_x, 50)
+		window.title = "纸牌游戏 - 客户端"
+		print("客户端窗口已设置")
+		_start_as_client()
+
+func _start_as_server():
+	print("启动服务器模式...")
+	var peer = ENetMultiplayerPeer.new()
+	var error = peer.create_server(12345, 4)
+	if error != OK:
+		print("服务器创建失败: ", error)
+		return
+	multiplayer.multiplayer_peer = peer
+	print("服务器已启动")
+
+func _start_as_client():
+	print("启动客户端模式...")
+	# 延迟确保服务器已启动
+	await get_tree().create_timer(0.5).timeout
+	
+	var peer = ENetMultiplayerPeer.new()
+	var error = peer.create_client("127.0.0.1", 12345)
+	if error != OK:
+		print("客户端创建失败: ", error)
+		return
+	multiplayer.multiplayer_peer = peer
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	print("客户端正在连接...")
+
+func _on_connected_to_server():
+	print("✅ 客户端成功连接到服务器！")
+```
+
+---
+
+## 📌 **关键知识点总结**
+
+### **1. 嵌入窗口 vs 独立窗口**
+| 特性 | 嵌入窗口 | 独立窗口 |
+|------|----------|----------|
+| **窗口ID** | -1 | >0 |
+| **位置移动** | ❌ 不可以 | ✅ 可以 |
+| **大小调整** | ✅ 可以 | ✅ 可以 |
+| **标题修改** | ✅ 可以 | ✅ 可以 |
+| **全屏切换** | ⚠️ 受限 | ✅ 可以 |
+
+### **2. 检测方法**
+```gdscript
+var is_embedded = (window.get_window_id() == -1) 或 Engine.is_embedded_in_editor()
+```
+
+### **3. 编辑器设置**
+- 位置：**调试 → 自定义运行实例**
+- 可以为不同实例添加命令行参数（如 `--server`）
+- 可以设置同时启动多个实例
+
+### **4. 获取命令行参数**
+```gdscript
+var args = OS.get_cmdline_args()
+var is_server = "--server" in args
+```
+
+---
+
+## 🎮 **最终效果**
+- **实例1**：最小化到任务栏（不可见的后台进程）
+- **实例2**：屏幕左上方，作为服务器窗口
+- **实例3**：屏幕右上方，作为客户端窗口
+
+三个窗口并排显示，服务器和客户端可以正常进行网络通信测试！
+
+---
+
+## 💡 **经验教训**
+1. **错误信息很重要**：`Embedded window can't be moved` 直接指明了问题本质
+2. **有时候绕过比硬刚更明智**：放弃修改第一个窗口，转而利用第2、3个窗口
+3. **调试信息要全面**：打印窗口ID、模式、位置等信息帮助定位
+4. **分步验证**：先测试标题能否修改，再测试位置，逐步缩小问题范围
+
+---
+
+这份记录可以放在你的项目文档中，方便日后参考。如果还有其他问题需要记录，随时告诉我！

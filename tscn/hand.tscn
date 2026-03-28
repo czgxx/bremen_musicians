@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dabi2coi15shm"]
+
+[ext_resource type="PackedScene" uid="uid://bgdxynurxnyis" path="res://tscn/hand_hold_card.tscn" id="1_djyb7"]
+[ext_resource type="PackedScene" uid="uid://dprjxe2qttsup" path="res://tscn/hand_move_card.tscn" id="2_rx63s"]
+
+[node name="Hand" type="Node2D" unique_id=1459166640]
+
+[node name="HandHoldCard" parent="." unique_id=283170099 instance=ExtResource("1_djyb7")]
+
+[node name="HandMoveCard" parent="." unique_id=891902518 instance=ExtResource("2_rx63s")]

@@ -1,0 +1,215 @@
+[gd_scene format=3 uid="uid://druc81a71voa8"]
+
+[ext_resource type="Script" uid="uid://bs6tncvdbd577" path="res://card/top/gds/card.gd" id="2_1gqkk"]
+[ext_resource type="Script" uid="uid://cdrfnmceteruh" path="res://card/card_animation/gds/card_animation.gd" id="3_qy4uq"]
+[ext_resource type="Shader" uid="uid://hqfsmnjtncdq" path="res://card/card_shader/shaders/card_flip.gdshader" id="4_b62bx"]
+[ext_resource type="Texture2D" uid="uid://b4p6jul37hgaf" path="res://card/card_image/sprites/card_back.png" id="5_b62bx"]
+[ext_resource type="PackedScene" uid="uid://otsq7f7lpgfj" path="res://card/card_image/scenes/card_image.tscn" id="6_f2e62"]
+[ext_resource type="Texture2D" uid="uid://cxkp53d62jcyd" path="res://card/card_image/sprites/card_front.png" id="6_w042b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bg1x5"]
+size = Vector2(64, 96)
+
+[sub_resource type="Animation" id="Animation_ulwxi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardImage:material:shader_parameter/enable_draw")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CardImage:material:shader_parameter/enable_flip")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_4xvtb"]
+resource_name = "draw"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardImage:material:shader_parameter/time")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.499999988824]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardImage:material:shader_parameter/enable_draw")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_s27oj"]
+resource_name = "flip"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardImage:material:shader_parameter/enable_flip")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardImage:material:shader_parameter/time")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.999999977648]
+}
+
+[sub_resource type="Animation" id="Animation_qbegr"]
+resource_name = "hover"
+length = 0.26666668
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -20, -0.04444445, 4.8333335, 0, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_pan3s"]
+resource_name = "move"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(50, 50)]
+}
+
+[sub_resource type="Animation" id="Animation_xwpos"]
+resource_name = "rotate"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1.5707964, -0.25, 0, 0.25, 0, 3.1415927, -0.25, 0, 0.25, 0, 4.712389, -0.25, 0, 0.25, 0, 6.2831855, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1)
+}
+
+[sub_resource type="Animation" id="Animation_2geyc"]
+resource_name = "shake"
+length = 0.999
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.16333334, 0.05497787, 0.2, -0.101666674, 0, 0.061666667, 0, -0.2, -0.049950004, 0.018714877, 0.039016664, -0.014618458, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0.02, 0.2664, 0.6993, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s27oj"]
+_data = {
+&"RESET": SubResource("Animation_ulwxi"),
+&"draw": SubResource("Animation_4xvtb"),
+&"flip": SubResource("Animation_s27oj"),
+&"hover": SubResource("Animation_qbegr"),
+&"move": SubResource("Animation_pan3s"),
+&"rotate": SubResource("Animation_xwpos"),
+&"shake": SubResource("Animation_2geyc")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bv3in"]
+shader = ExtResource("4_b62bx")
+shader_parameter/enable_draw = false
+shader_parameter/enable_flip = false
+shader_parameter/card_size = Vector2(32, 48)
+shader_parameter/time = 0.999999977648
+shader_parameter/speed = 1.0
+shader_parameter/card_front = ExtResource("6_w042b")
+shader_parameter/card_back = ExtResource("5_b62bx")
+
+[node name="Card" type="Node2D" unique_id=1207414104 groups=["Card"]]
+script = ExtResource("2_1gqkk")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=556164621]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1522736878]
+position = Vector2(32, 48)
+shape = SubResource("RectangleShape2D_bg1x5")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=94025346]
+
+[node name="CardAnimation" type="AnimationPlayer" parent="." unique_id=552295143]
+libraries/ = SubResource("AnimationLibrary_s27oj")
+script = ExtResource("3_qy4uq")
+
+[node name="CardImage" parent="." unique_id=321929244 instance=ExtResource("6_f2e62")]
+material = SubResource("ShaderMaterial_bv3in")
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://jry54nbeua43"]
+
+[ext_resource type="PackedScene" uid="uid://bdhojpdntu48j" path="res://tscn/card_manager.tscn" id="1_8uh7m"]
+[ext_resource type="PackedScene" uid="uid://b272lflgv1265" path="res://tscn/player.tscn" id="2_6uqi0"]
+
+[node name="Test" type="Node2D" unique_id=1593781194]
+
+[node name="CardManager" parent="." unique_id=895412758 instance=ExtResource("1_8uh7m")]
+
+[node name="Player" parent="." unique_id=1205470321 instance=ExtResource("2_6uqi0")]
+position = Vector2(2, 200)

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dk05yl013sxhn"]
+
+[ext_resource type="Script" uid="uid://nbs3wqo8fr38" path="res://gd/card.gd" id="1_1u7tq"]
+[ext_resource type="PackedScene" uid="uid://blfawmnkg4kw3" path="res://tscn/card_high_light.tscn" id="4_bg1x5"]
+[ext_resource type="PackedScene" uid="uid://d3khl4l8nrj2a" path="res://tscn/card_image.tscn" id="4_mbo0t"]
+[ext_resource type="PackedScene" uid="uid://nx7nojesearx" path="res://tscn/card_movement.tscn" id="5_csaj8"]
+
+[node name="Card" type="Node2D" unique_id=1207414104 groups=["Card"]]
+script = ExtResource("1_1u7tq")
+
+[node name="CardMovement" parent="." unique_id=1684781641 instance=ExtResource("5_csaj8")]
+unique_name_in_owner = true
+
+[node name="CardImage" parent="." unique_id=2064737836 instance=ExtResource("4_mbo0t")]
+unique_name_in_owner = true
+
+[node name="CardHighLight" parent="." unique_id=2125895569 instance=ExtResource("4_bg1x5")]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=94025346]
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

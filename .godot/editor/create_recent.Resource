@@ -1,0 +1,2 @@
+CardData
+Resource

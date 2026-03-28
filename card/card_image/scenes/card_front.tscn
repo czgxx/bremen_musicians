@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://be6rkmqa8ejjg"]
+
+[ext_resource type="Shader" uid="uid://1wn1s72b2kmj" path="res://card/card_shader/shaders/card_front_flip.gdshader" id="1_2nji2"]
+[ext_resource type="Script" uid="uid://dyab372r32gpl" path="res://card/card_image/gds/card_front.gd" id="2_logpp"]
+[ext_resource type="Texture2D" uid="uid://cxkp53d62jcyd" path="res://card/card_image/sprites/card_front.png" id="2_t4jed"]
+[ext_resource type="Texture2D" uid="uid://rtlegyqdix1a" path="res://sprites/card_face.png" id="3_t4jed"]
+[ext_resource type="Texture2D" uid="uid://cm4i248sdgfjk" path="res://card/card_image/sprites/card_suit2.png" id="5_57ej5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oq42u"]
+shader = ExtResource("1_2nji2")
+shader_parameter/enable = false
+shader_parameter/card_size = Vector2(32, 48)
+shader_parameter/time = 0.7999999821184
+shader_parameter/speed = 1.0
+shader_parameter/card_front = ExtResource("2_t4jed")
+
+[node name="CardFront" type="Node2D" unique_id=1483241120]
+material = SubResource("ShaderMaterial_oq42u")
+use_parent_material = true
+script = ExtResource("2_logpp")
+metadata/_edit_lock_ = true
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1781206296]
+texture = ExtResource("3_t4jed")
+centered = false
+
+[node name="Suit" type="Sprite2D" parent="." unique_id=1922441179]
+position = Vector2(4, 23)
+texture = ExtResource("5_57ej5")
+centered = false
+
+[node name="Label" type="Label" parent="." unique_id=517823413]
+modulate = Color(0, 0, 0, 1)
+offset_left = 7.0
+offset_top = 1.0
+offset_right = 35.0
+offset_bottom = 24.0
+text = "1"

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dprjxe2qttsup"]
+
+[ext_resource type="Script" uid="uid://c00bqimb2rls2" path="res://hand_move_card.gd" id="1_ttip1"]
+[ext_resource type="PackedScene" uid="uid://dkdcattt5t8xh" path="res://tscn/card_fan.tscn" id="2_bu1rh"]
+
+[node name="HandMoveCard" type="Node2D" unique_id=891902518]
+script = ExtResource("1_ttip1")
+
+[node name="CardFan" parent="." unique_id=1839209572 instance=ExtResource("2_bu1rh")]
+start_angle = -10.0
+end_angle = 10.0

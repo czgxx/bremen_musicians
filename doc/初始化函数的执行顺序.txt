@@ -1,0 +1,21 @@
+flowchart TD
+	A[节点被实例化<br>（如：Card.new()）] --> B[_init()<br>构造函数]
+	B --> C{添加到场景树<br>（如：add_child()）}
+	
+	C --> D[子树自顶向下<br>递归调用 _enter_tree]
+	D --> E[子树自底向上<br>递归调用 _ready]
+	
+	E --> F[节点就绪<br>ready 信号发出]
+	
+	F --> G{进入主循环}
+	G --> H[_process(delta)<br>每帧更新]
+	G --> I[_physics_process(delta)<br>每物理帧更新]
+	G --> J[_input / _unhandled_input<br>输入处理]
+	
+	H --> G
+	I --> G
+	J --> G
+	
+	C -.-> K[从场景树移除<br>remove_child 或 queue_free]
+	K --> L[_exit_tree<br>子树自底向上递归]
+	

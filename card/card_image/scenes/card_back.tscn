@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://crht7qlx1s0cy"]
+
+[ext_resource type="Texture2D" uid="uid://b5vmo27n75uo1" path="res://sprites/card_back.png" id="1_agm7m"]
+[ext_resource type="Script" uid="uid://5wtlmtuqw7x" path="res://card/card_image/gds/card_back.gd" id="2_a3xef"]
+
+[node name="CardBack" type="Node2D" unique_id=1689232563]
+script = ExtResource("2_a3xef")
+metadata/_edit_lock_ = true
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1707971361]
+unique_name_in_owner = true
+texture = ExtResource("1_agm7m")
+centered = false

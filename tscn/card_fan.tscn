@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dkdcattt5t8xh"]
+
+[ext_resource type="Script" uid="uid://dp6nmqj21qbhk" path="res://gd/card_fan.gd" id="1_hbcdj"]
+[ext_resource type="PackedScene" uid="uid://dk05yl013sxhn" path="res://card/top/scenes/card.tscn" id="2_2xx7g"]
+
+[sub_resource type="Curve" id="Curve_hbcdj"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 2.0, 0, 1, Vector2(1, 1), 2.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_f5tvc"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5019305, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_2xx7g"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="CardFan" type="Node2D" unique_id=1839209572]
+script = ExtResource("1_hbcdj")
+spread_x_curve = SubResource("Curve_hbcdj")
+spread_y_curve = SubResource("Curve_f5tvc")
+fan_curve = SubResource("Curve_2xx7g")
+
+[node name="Card2" parent="." unique_id=336972385 instance=ExtResource("2_2xx7g")]
+visible = false

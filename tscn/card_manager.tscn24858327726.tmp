@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bdhojpdntu48j"]
+
+[ext_resource type="Script" uid="uid://c80y4oaip730n" path="res://gd/card_manager.gd" id="1_ljlfq"]
+[ext_resource type="Script" uid="uid://crbgwtx6jil5g" path="res://gd/camera_2d.gd" id="2_ljlfq"]
+
+[node name="CardManager" type="Node2D" unique_id=895412758]
+script = ExtResource("1_ljlfq")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1440673998]
+visible = false
+script = ExtResource("2_ljlfq")

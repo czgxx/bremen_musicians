@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dwdpist2josfv"]
+
+[ext_resource type="Script" uid="uid://6r1chwq5s6eb" path="res://gd/discard.gd" id="1_0up82"]
+[ext_resource type="PackedScene" uid="uid://dkdcattt5t8xh" path="res://tscn/card_fan.tscn" id="2_0up82"]
+
+[node name="Discard" type="Node2D" unique_id=698487624]
+script = ExtResource("1_0up82")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1521980580]
+offset_left = -83.0
+offset_top = -53.0
+offset_right = 85.0
+offset_bottom = 60.0
+mouse_filter = 2
+color = Color(0.3137255, 0.3647059, 0.45490196, 1)
+
+[node name="CardFan" parent="." unique_id=1839209572 instance=ExtResource("2_0up82")]

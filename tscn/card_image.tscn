@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://d3khl4l8nrj2a"]
+
+[ext_resource type="Script" uid="uid://brjv1f8wrf5lp" path="res://gd/card_image.gd" id="1_0two1"]
+[ext_resource type="Texture2D" uid="uid://b5vmo27n75uo1" path="res://sprites/card_back.png" id="2_0gwtp"]
+[ext_resource type="Script" uid="uid://rkjk5hclqjel" path="res://gd/detect.gd" id="3_1iq76"]
+[ext_resource type="Texture2D" uid="uid://rtlegyqdix1a" path="res://sprites/card_face.png" id="3_nx1on"]
+[ext_resource type="Texture2D" uid="uid://dm5yvcc75d2o4" path="res://sprites/card_suit1.png" id="4_qhpu4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bg1x5"]
+size = Vector2(64, 96)
+
+[node name="CardImage" type="Node2D" unique_id=2064737836]
+script = ExtResource("1_0two1")
+
+[node name="Sprite2DBack" type="Sprite2D" parent="." unique_id=1823507410]
+unique_name_in_owner = true
+texture = ExtResource("2_0gwtp")
+
+[node name="Sprite2DFront" type="Sprite2D" parent="." unique_id=736319121]
+unique_name_in_owner = true
+texture = ExtResource("3_nx1on")
+
+[node name="Label" type="Label" parent="Sprite2DFront" unique_id=1372984093]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+offset_left = -28.0
+offset_top = -52.0
+offset_right = 12.0
+offset_bottom = -29.0
+text = "1"
+
+[node name="Sprite2DSuit" type="Sprite2D" parent="Sprite2DFront" unique_id=1760627732]
+unique_name_in_owner = true
+position = Vector2(-23, -23)
+texture = ExtResource("4_qhpu4")
+
+[node name="Detect" type="Node2D" parent="." unique_id=1199780497]
+unique_name_in_owner = true
+script = ExtResource("3_1iq76")
+
+[node name="Button" type="Button" parent="Detect" unique_id=648870564]
+unique_name_in_owner = true
+offset_left = -32.0
+offset_top = -48.0
+scale = Vector2(1.991388, 1.9904516)
+keep_pressed_outside = true
+
+[node name="Area2D" type="Area2D" parent="Detect" unique_id=556164621]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detect/Area2D" unique_id=1522736878]
+shape = SubResource("RectangleShape2D_bg1x5")
+
+[node name="Timer" type="Timer" parent="Detect" unique_id=1602651433]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="button_down" from="Detect/Button" to="." method="_on_button_button_down"]
+[connection signal="button_up" from="Detect/Button" to="." method="_on_button_button_up"]
+[connection signal="mouse_entered" from="Detect/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Detect/Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Detect/Button" to="." method="_on_button_pressed"]
+[connection signal="toggled" from="Detect/Button" to="." method="_on_button_toggled"]
+[connection signal="area_entered" from="Detect/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Detect/Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="input_event" from="Detect/Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Detect/Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Detect/Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="timeout" from="Detect/Timer" to="." method="_on_timer_timeout"]

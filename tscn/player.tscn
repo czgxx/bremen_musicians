@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b272lflgv1265"]
+
+[ext_resource type="Script" uid="uid://ur5x51v6xyp" path="res://tscn/player.gd" id="1_3c7ea"]
+[ext_resource type="Texture2D" uid="uid://dsm6ocxu5spg4" path="res://sprites/Wing.png" id="2_3c7ea"]
+[ext_resource type="PackedScene" uid="uid://dabi2coi15shm" path="res://tscn/hand.tscn" id="3_3c7ea"]
+
+[node name="Player" type="Node2D" unique_id=1205470321 groups=["Player"]]
+script = ExtResource("1_3c7ea")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1352868753]
+visible = false
+texture = ExtResource("2_3c7ea")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2081698165]
+
+[node name="Hand" parent="." unique_id=1459166640 instance=ExtResource("3_3c7ea")]

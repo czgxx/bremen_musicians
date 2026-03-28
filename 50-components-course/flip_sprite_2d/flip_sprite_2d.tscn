@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://d10kju5plwxsi"]
+
+[ext_resource type="Script" uid="uid://c8e4kr0e48yuk" path="res://50-components-course/flip_sprite_2d/flip_sprite_2d.gd" id="1_qcxw8"]
+[ext_resource type="Script" uid="uid://8jmkp1guvmrs" path="res://50-components-course/flip_sprite_2d/main.gd" id="1_t2wa4"]
+[ext_resource type="Texture2D" uid="uid://lkk1v02yj41g" path="res://50-components-course/flip_sprite_2d/Sprite-0002.png" id="2_t2wa4"]
+
+[node name="FlipSprite2D" type="Node2D" unique_id=1015090627]
+script = ExtResource("1_t2wa4")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=595298622]
+position = Vector2(234, 337)
+scale = Vector2(2.085, 2.085)
+texture = ExtResource("2_t2wa4")
+
+[node name="Label" type="Label" parent="Sprite2D" unique_id=1837785497]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="FlipSprite2D" type="Node" parent="Sprite2D" unique_id=1693654402 node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_qcxw8")
+sprite = NodePath("..")
+flip_v = true
+
+[node name="ui" type="CanvasLayer" parent="." unique_id=1054842956]
+
+[node name="Button" type="Button" parent="ui" unique_id=857849167]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 96.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2

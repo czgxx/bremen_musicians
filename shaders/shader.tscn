@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://6wwfo4owkqr0"]
+
+[ext_resource type="Shader" uid="uid://75s6ndxtkq5b" path="res://shaders/my_first_shader.gdshader" id="1_kttwo"]
+[ext_resource type="Script" uid="uid://tr85bgg6k1sl" path="res://shaders/shader.gd" id="1_upyt6"]
+[ext_resource type="Texture2D" uid="uid://bk7i1kr0r238q" path="res://sprites/club.png" id="2_upyt6"]
+[ext_resource type="Texture2D" uid="uid://dhmhr1kf1mws8" path="res://icon.svg" id="2_vuimp"]
+[ext_resource type="Texture2D" uid="uid://dce181mbqs15s" path="res://sprites/slot.png" id="3_tpmbp"]
+[ext_resource type="Shader" uid="uid://ykh0e0cht26n" path="res://shaders/card.gdshader" id="4_w2rxh"]
+[ext_resource type="Script" uid="uid://dgw6ri5gnnceq" path="res://shaders/card.gd" id="5_tpmbp"]
+[ext_resource type="Shader" uid="uid://cj8wpxgtbhiw0" path="res://shaders/shader_flip.gdshader" id="7_gd15a"]
+[ext_resource type="Texture2D" uid="uid://rtlegyqdix1a" path="res://sprites/card_face.png" id="8_vuimp"]
+[ext_resource type="Texture2D" uid="uid://dm5yvcc75d2o4" path="res://sprites/card_suit1.png" id="9_xk0sw"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_q7wjk"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0gdqj"]
+noise = SubResource("FastNoiseLite_q7wjk")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gd15a"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vuimp"]
+noise = SubResource("FastNoiseLite_gd15a")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c1cgk"]
+shader = ExtResource("1_kttwo")
+shader_parameter/noise_texture1 = SubResource("NoiseTexture2D_0gdqj")
+shader_parameter/noise_texture2 = SubResource("NoiseTexture2D_vuimp")
+shader_parameter/front_texture = ExtResource("2_upyt6")
+shader_parameter/back_texture = ExtResource("3_tpmbp")
+shader_parameter/speed1 = 0.20000000298024
+shader_parameter/speed2 = 0.010000000475
+shader_parameter/int1 = 2
+shader_parameter/int2 = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q7wjk"]
+shader = ExtResource("4_w2rxh")
+shader_parameter/flip_progress = 0.0
+shader_parameter/front_texture = ExtResource("2_upyt6")
+shader_parameter/back_texture = ExtResource("3_tpmbp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8rud2"]
+shader = ExtResource("7_gd15a")
+shader_parameter/speed_flip = 20.0
+shader_parameter/int1 = 2
+shader_parameter/int2 = 2
+
+[node name="Shader" type="Node2D" unique_id=1739212266]
+script = ExtResource("1_upyt6")
+
+[node name="BackGround" type="Sprite2D" parent="." unique_id=319204367]
+texture = ExtResource("2_vuimp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1991384774]
+material = SubResource("ShaderMaterial_c1cgk")
+texture = ExtResource("2_upyt6")
+
+[node name="Card" type="Sprite2D" parent="." unique_id=1346330042]
+visible = false
+material = SubResource("ShaderMaterial_q7wjk")
+position = Vector2(281, 114)
+texture = ExtResource("2_upyt6")
+script = ExtResource("5_tpmbp")
+
+[node name="Sprite2DFront" type="Sprite2D" parent="Card" unique_id=272984369]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_8rud2")
+scale = Vector2(1, -1)
+texture = ExtResource("8_vuimp")
+
+[node name="Label" type="Label" parent="Card/Sprite2DFront" unique_id=1390673375]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+use_parent_material = true
+offset_left = -28.0
+offset_top = -52.0
+offset_right = 12.0
+offset_bottom = -29.0
+text = "1"
+
+[node name="Sprite2DSuit" type="Sprite2D" parent="Card/Sprite2DFront" unique_id=1086498898]
+unique_name_in_owner = true
+use_parent_material = true
+position = Vector2(-23, -23)
+texture = ExtResource("9_xk0sw")

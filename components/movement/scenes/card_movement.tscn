@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://nx7nojesearx"]
+
+[ext_resource type="Script" uid="uid://ccmwrbejy8f02" path="res://components/movement/gds/card_movement.gd" id="1_2nyla"]
+
+[node name="CardMovement" type="Node2D" unique_id=1684781641]
+script = ExtResource("1_2nyla")

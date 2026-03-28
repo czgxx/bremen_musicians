@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bdhojpdntu48j"]
+
+[ext_resource type="Script" uid="uid://c80y4oaip730n" path="res://card/card_manager/gds/card_manager.gd" id="1_ljlfq"]
+[ext_resource type="Script" uid="uid://crbgwtx6jil5g" path="res://gd/camera_2d.gd" id="2_ljlfq"]
+
+[node name="CardManager" type="Node2D" unique_id=895412758]
+script = ExtResource("1_ljlfq")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1440673998]
+visible = false
+script = ExtResource("2_ljlfq")
+
+[node name="Button2" type="Button" parent="." unique_id=25403086]
+offset_left = -175.0
+offset_top = 35.0
+offset_right = -103.0
+offset_bottom = 66.0
+text = "生成牌组"
+
+[node name="Button" type="Button" parent="." unique_id=1441617720]
+offset_left = -157.0
+offset_top = -40.0
+offset_right = -117.0
+offset_bottom = -9.0
+text = "洗牌"
+
+[connection signal="button_down" from="Button2" to="." method="create_deck"]
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

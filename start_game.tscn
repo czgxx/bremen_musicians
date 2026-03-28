@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://of6evl54nb0w"]
+
+[ext_resource type="Script" uid="uid://c12haldak1qli" path="res://start_animation.gd" id="1_3egxs"]
+[ext_resource type="Texture2D" uid="uid://slwg6qqutlt" path="res://sprites/forest.png" id="2_amu4p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbw4x"]
+atlas = ExtResource("2_amu4p")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkwxp"]
+atlas = ExtResource("2_amu4p")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipysq"]
+atlas = ExtResource("2_amu4p")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_redxk"]
+atlas = ExtResource("2_amu4p")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i1pu1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbw4x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkwxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipysq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_redxk")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="StartGame" type="Node2D" unique_id=1650280548]
+script = ExtResource("1_3egxs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=70208423]
+sprite_frames = SubResource("SpriteFrames_i1pu1")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+
+[node name="Button" type="Button" parent="." unique_id=2081794064]
+offset_left = -30.0
+offset_top = 53.0
+offset_right = 11.0
+offset_bottom = 94.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1371867509]
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
