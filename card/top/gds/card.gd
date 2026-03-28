@@ -38,7 +38,10 @@ func add_label(name,text,position:=Vector2(0,0)):
 func _ready() -> void:
 	connect_signal()
 	card_data.card_name="czg"
-	move_to(Vector2(300,600))
+	#move_to(Vector2(300,600))
+	#flip_to(false)
+	#flip_to(true)
+	draw_to(false)
 	#add_sprite("Suit",preload("uid://bj8pc7rbhltbn"),Vector2(10,30))
 	#add_label("Label","6",Vector2(15,0))
 	#card_state.auto_hover=true
@@ -61,18 +64,48 @@ func _physics_process(delta: float) -> void:
 @rpc("any_peer", "call_local", "reliable")
 func move_to(to:Vector2=Vector2.ZERO,node: Node = get_parent()):
 	##reparent(node)
+	card_animation.modify_keyframe_value("move", 0, 0, self.global_position)
 	card_animation.modify_keyframe_value("move", 0, 1, to)
 	card_animation.play("move")
 	#card_movement.move_to.rpc(to)
 	pass
 @rpc("any_peer", "call_local", "reliable")
-func flip_back(to:Vector2=Vector2.ZERO,node: Node = get_parent()):
+func flip_to(face_up:bool=true,flip_type:String="flip_lr"):
+	if face_up:
+		if card_data.is_face_up:
+			return
+		else:
+			card_data.is_face_up=true
+			card_animation.play_backwards(flip_type)
+	else:
+		if card_data.is_face_up:
+			card_data.is_face_up=false
+			card_animation.play(flip_type)
+		else:
+			return
 	##reparent(node)
 	#card_animation.modify_keyframe_value("move", 0, 1, to)
-	card_animation.play("flip")
+	#card_animation.play("flip")
 	#card_movement.move_to.rpc(to)
 	pass
-
+func draw_to(face_up:bool=true):
+	if face_up:
+		if card_data.is_face_up:
+			return
+		else:
+			card_data.is_face_up=true
+			card_animation.play("draw")
+	else:
+		if card_data.is_face_up:
+			card_data.is_face_up=false
+			card_animation.play_backwards("draw")
+		else:
+			return
+	pass
+#func flip_card_to_face_up():
+	#card_data.is_face_up=true
+#func flip_card_to_back_up():
+	#card_data.is_face_up=false
 #region all signal
 func connect_signal():
 	card_data.changed.connect(_card_data_changed)

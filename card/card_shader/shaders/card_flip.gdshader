@@ -3,6 +3,8 @@ shader_type canvas_item;
 group_uniforms enable;
 uniform bool enable_draw=false;
 uniform bool enable_flip=false;
+uniform float flip_speed=1.;
+
 group_uniforms;
 uniform vec2 card_size=vec2(32.,48.);
 uniform float time:hint_range(0.0, 1.0, 0.01)=0.4;
@@ -22,7 +24,7 @@ varying vec2 uv;
 varying vec2 vertex_xy;
 varying vec4 color_card_back;
 varying vec4 color_card_front;
-vec4 draw(){
+vec4 draw_color(){
 	vec4 final_color;
 	//vec4 color_card_front_flip_pre=texture(card_front,vec2(1.+uv.x-time,2.-uv.y-time))
 	//vec4 color_card_front_flip_pre=texture(card_front,vec2(1.-uv.x-time,uv.y-time));
@@ -52,23 +54,22 @@ vec4 flip_color(){
 	vec4 final_color;
 	vec4 color_card_back_tmp;
 	vec4 color_card_front_tmp;
-	float time_2=(1.-time);
-	color_card_back_tmp=texture(card_back,vec2((uv.x-1.*time_2)*(1.0/(1.0-2.*time_2)),uv.y));
-	color_card_front_tmp=texture(card_front,vec2((uv.x-1.*time)*(1.0/(1.0-2.*time)),uv.y));
-	if(time<=0.5){
-		if(uv.x>time && uv.x<1.-time){
+	float time_1=(time*flip_speed);
+	float time_2=(1.-time_1);
+	color_card_back_tmp=texture(card_back,vec2((uv.x-time_2)*(1.0/(1.0-2.*time_2)),uv.y));
+	color_card_front_tmp=texture(card_front,vec2((uv.x-time_1)*(1.0/(1.0-2.*time_1)),uv.y));
+	if(time_1<=0.5){
+		if(uv.x>time_1 && uv.x<1.-time_1){
 			final_color=color_card_front_tmp;
 		}else{
 			final_color=vec4(0.0);
 		}
-	}else if(time<=1.){
-		if(uv.x>time_2 && uv.x<1.-time_2){
+	}else{
+		if(uv.x<time_1 && uv.x>1.-time_1){
 			final_color=color_card_back_tmp;
 		}else{
 			final_color=vec4(0.0);
 		}
-	}else{
-		final_color=color_card_front;
 	}
 	// 处理预乘alpha（CanvasGroup必需）
     if (final_color.a > 0.0001) {
@@ -117,7 +118,7 @@ void fragment() {
 
 
 	if(enable_draw){
-		COLOR=draw();
+		COLOR=draw_color();
 	}else if(enable_flip){
 		COLOR=flip_color();
 	}else{

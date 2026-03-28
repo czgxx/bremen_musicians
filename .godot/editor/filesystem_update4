@@ -16,3 +16,4 @@ res://deck/scenes/card_deck.tscn
 res://deck/gds/deck.gd
 res://deck/gds/card_deck.gd
 res://card/card_image/scenes/card_front.tscn
+res://card/card_image/gds/card_image.gd

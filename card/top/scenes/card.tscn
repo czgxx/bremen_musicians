@@ -51,7 +51,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_4xvtb"]
 resource_name = "draw"
-length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -59,10 +58,10 @@ tracks/0/path = NodePath("CardImage:material:shader_parameter/time")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.19999999),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 0.499999988824]
+"values": [0.0, 0.999999977648]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -71,14 +70,25 @@ tracks/1/path = NodePath("CardImage:material:shader_parameter/enable_draw")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.16666667, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.03333333, 0.96666664, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [true, true, false]
+"values": [false, true, true, false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
 }
 
 [sub_resource type="Animation" id="Animation_s27oj"]
-resource_name = "flip"
+resource_name = "flip_lr"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -86,10 +96,10 @@ tracks/0/path = NodePath("CardImage:material:shader_parameter/enable_flip")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.033333335, 0.96666664, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [true, true]
+"values": [false, true, true, false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -168,7 +178,7 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_ulwxi"),
 &"draw": SubResource("Animation_4xvtb"),
-&"flip": SubResource("Animation_s27oj"),
+&"flip_lr": SubResource("Animation_s27oj"),
 &"hover": SubResource("Animation_qbegr"),
 &"move": SubResource("Animation_pan3s"),
 &"rotate": SubResource("Animation_xwpos"),
@@ -179,8 +189,9 @@ _data = {
 shader = ExtResource("4_b62bx")
 shader_parameter/enable_draw = false
 shader_parameter/enable_flip = false
+shader_parameter/flip_speed = 1.0
 shader_parameter/card_size = Vector2(32, 48)
-shader_parameter/time = 0.999999977648
+shader_parameter/time = 0.0
 shader_parameter/speed = 1.0
 shader_parameter/card_front = ExtResource("6_w042b")
 shader_parameter/card_back = ExtResource("5_b62bx")
@@ -204,6 +215,9 @@ script = ExtResource("3_qy4uq")
 
 [node name="CardImage" parent="." unique_id=321929244 instance=ExtResource("6_f2e62")]
 material = SubResource("ShaderMaterial_bv3in")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=2014451540]
+anim_player = NodePath("../CardAnimation")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

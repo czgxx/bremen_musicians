@@ -27,7 +27,7 @@ enum SUIT {SPADE,HEART,CLUB,DIAMOND}
 	#"back"  = CardImageData.new(),
 #}
 var neighbor:Array[Card]
-var is_top_card:bool
-var is_face_up:bool
+var is_top_card:bool=false
+var is_face_up:bool=true
 enum STATE {IDEAL,HOVER_ON,MOVE,}
 var state:STATE=STATE.IDEAL

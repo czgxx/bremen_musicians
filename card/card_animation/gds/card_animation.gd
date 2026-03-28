@@ -13,6 +13,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	pass
+
+
 func modify_keyframe_value(anim_name: String, track_index: int, key_index: int, new_value):
 	var animation = get_animation(anim_name)
 	if not animation:
