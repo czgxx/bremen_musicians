@@ -12,6 +12,10 @@ scale = Vector2(4.453125, 2.484375)
 texture = ExtResource("3_dj0lb")
 
 [node name="Card" parent="." unique_id=1207414104 instance=ExtResource("1_fqrtb")]
+unique_name_in_owner = true
+
+[node name="Card2" parent="." unique_id=1028706192 instance=ExtResource("1_fqrtb")]
+unique_name_in_owner = true
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=641449848]
 position = Vector2(215, 52)

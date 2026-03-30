@@ -32,35 +32,37 @@ func _init() -> void:
 			## 在这里执行缩小、下一张牌等操作
 			#zoom_out()
 	#pass
-func remove_card_from_hand(card:Card):
-	if has_card(card):
-		remove_card(card)
-	pass
-func add_card_to_hand(card:Card):
-	if not has_card(card):
-		add_card(card)
-		card.card_state.auto_hover=false
-	pass
+#func remove_card_from_hand(card:Card):
+	#if has_card(card):
+		#remove_card(card)
+	#pass
+#func add_card_to_hand(card:Card):
+	#if not has_card(card):
+		#add_card(card)
+		#card.card_state.auto_hover=false
+	#pass
 
-func zoom_in():
-	cnt_wheel=cnt_wheel+1
-	if current_camera:
-		current_camera.zoom+=step_camera_zoom
-		current_camera.zoom=current_camera.zoom.clamp(Vector2(1,1)-step_camera_zoom*max_cnt_wheel,
-													Vector2(1,1)+step_camera_zoom*max_cnt_wheel)
-	print("cnt_wheel"+str(cnt_wheel))
-func zoom_out():
-	cnt_wheel=cnt_wheel-1
-	if current_camera:
-		current_camera.zoom-=step_camera_zoom
-		current_camera.zoom=current_camera.zoom.clamp(Vector2(1,1)-step_camera_zoom*max_cnt_wheel,Vector2(1,1)+step_camera_zoom*max_cnt_wheel)
-	print("cnt_wheel"+str(cnt_wheel))
+#func zoom_in():
+	#cnt_wheel=cnt_wheel+1
+	#if current_camera:
+		#current_camera.zoom+=step_camera_zoom
+		#current_camera.zoom=current_camera.zoom.clamp(Vector2(1,1)-step_camera_zoom*max_cnt_wheel,
+													#Vector2(1,1)+step_camera_zoom*max_cnt_wheel)
+	#print("cnt_wheel"+str(cnt_wheel))
+#func zoom_out():
+	#cnt_wheel=cnt_wheel-1
+	#if current_camera:
+		#current_camera.zoom-=step_camera_zoom
+		#current_camera.zoom=current_camera.zoom.clamp(Vector2(1,1)-step_camera_zoom*max_cnt_wheel,Vector2(1,1)+step_camera_zoom*max_cnt_wheel)
+	#print("cnt_wheel"+str(cnt_wheel))
 func create_deck() -> void:
-	spawn_deck(25)
+	spawn_deck(20)
 	for card:Card in get_cards():
 		add_child(card)
-		card.move_to(self.global_position+card.get_index()*Vector2(1,1))
+		card.move_to(self.global_position+card.get_index()*Vector2(0.1,-0.1))
+		print(card.position)
 		card.card_data.is_face_up=false
+		#card.flip_to(false)
 		#i.card_high_light.enable=false
 		#i.card_data.card_owner=self
 		pass
@@ -68,31 +70,30 @@ func create_deck() -> void:
 func pick_card(card_index:int=get_cards().size()-1) -> Card:
 	var card_picked:Card=get_cards()[card_index]
 	print(card_picked.name+":is picked")
-	card_picked.card_data.is_face_up=true
+	#card_picked.card_data.is_face_up=true
+	card_picked.draw_to(true)
 	SignalBus.deck_pick_card.emit(self,card_picked)
 	remove_card(card_picked)
-	cnt_wheel=0
+	#cnt_wheel=0
 	return card_picked
 	pass
 
-func hide_card(card_index:int=get_cards().size()-1) -> Card:
-	var card_picked:Card=get_cards()[card_index]
-	print(card_picked.name+":is hided")
-	card_picked.card_data.is_face_up=false
-	SignalBus.deck_hide_card.emit(self,card_picked)
-	add_card(card_picked)
-	cnt_wheel=0
-	return card_picked
+func hide_card(card:Card, card_index:int=get_cards().size()-1)->void:
+	#var card_picked:Card=get_cards()[card_index]
+	print(card.name+":is hided")
+	card.flip_to(false)
+	SignalBus.deck_hide_card.emit(self,card)
+	add_card(card)
 	pass
 @rpc("any_peer", "call_local", "reliable")
-func spawn_deck(num:int=52):
+func spawn_deck(num:int=54):
+	var card_new= CardManager.spawn_card(CardData.NUM.NG,CardData.SUIT.SPADE)
+	add_card(card_new)
+	card_new= CardManager.spawn_card(CardData.NUM.Ng,CardData.SUIT.HEART)
+	add_card(card_new)
 	for i in 13:
-		for j in 3:
-			#var card_new= CardManager.spawn_card(randi_range(3,17),randi_range(0,3))
-			
-			var card_new= CardManager.spawn_card(i,j)
-			#print(card_new.card_data.card_name+"'s z_index :"+str(card_new.z_index))
-			#card_new.global_position=pos
+		for j in 4:
+			card_new= CardManager.spawn_card(i,j)
 			add_card(card_new)
 		pass
 	pass
@@ -111,19 +112,20 @@ func _process(delta: float) -> void:
 	pass
 
 func connect_signalbus():
-	SignalBus.card_area_mouse_wheel_down.connect(_on_card_area_mouse_wheel_down)
-	SignalBus.card_area_mouse_wheel_up.connect(_on_card_area_mouse_wheel_up)
+	#SignalBus.card_area_input_event.connect(_on_card_area_input_event)
 	pass
+#func _on_card_area_input_event(card:Card,viewport, event, shape_idx):
+	#if has_card(card):
+		#match event:
+			#InputEventMouseButton:
+				#if event.button_index == MOUSE_BUTTON_LEFT:
+					#if event.pressed:
+						##pick_card()
+						#pass
+	#pass
 
-func _on_card_area_mouse_wheel_down(card:Card):
-	if has_card(card):
-		zoom_in()
-		if cnt_wheel==max_cnt_wheel:
-			pick_card()
-	pass
-func _on_card_area_mouse_wheel_up(card:Card):
-	if has_card(card):
-		zoom_out()
-		if cnt_wheel==0:
-			hide_card()
-	pass
+
+
+func _on_button_button_down() -> void:
+	pick_card()
+	pass # Replace with function body.

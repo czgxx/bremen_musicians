@@ -21,8 +21,8 @@ var sprites_root_path="res://sprites/"
 
 var camera:Camera2D
 var screen_size:Vector2
-const WINDOW_WIDTH = 1250
-const WINDOW_HEIGHT = 800
+const WINDOW_WIDTH = 1280
+const WINDOW_HEIGHT = 720
 static var view_rect:Rect2
 static var screen_center :Vector2=Vector2.ZERO
 static var view_size :Vector2=Vector2.ZERO
@@ -208,7 +208,7 @@ func _setup_window():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-func check_parent(child:Node2D,group:String):
+func check_parent_group(child:Node2D,group:String):
 	#print_debug("来自: ", child.name,child.get_parent().name)
 	if(child.get_parent().is_in_group(group)):
 		#print(child.name+"is ready!")

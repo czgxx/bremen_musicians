@@ -17,7 +17,7 @@ func _init(enable:bool=true,name:String="CardMovement"):
 	pass
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	card=Global.check_parent(self,"Card")
+	card=Global.check_parent_group(self,"Card")
 	#get_card_size()
 	#get_camera_view_rect()
 	pass
@@ -44,10 +44,10 @@ func state_machine():
 	pass
 #endregion
 func update_state():
-	if state==STATE.MOVE:
-		card.card_state.moving=true
-	else:
-		card.card_state.moving=false
+	#if state==STATE.MOVE:
+		#card.card_data.state=CardData.STATE.MOVE
+	#else:
+		#card.card_data.state=CardData.STATE.IDEAL
 	
 	if state==STATE.OVER:
 		enable=false
@@ -78,7 +78,7 @@ func move_process():
 		pos_inc=direction*speed*get_physics_process_delta_time()
 		if diff.length()>pos_inc.length():
 			result=pos_src+pos_inc
-			result=result.clamp(pos_des-Global.card_size/2,pos_des+Global.card_size/2)
+			result=result.clamp(pos_des-card.card_data.card_size/2,pos_des+card.card_data.card_size/2)
 			result=Global.limit_to_camera(result,card.card_data.card_size)
 		else:
 			result=pos_des

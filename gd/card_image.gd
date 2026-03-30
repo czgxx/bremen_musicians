@@ -186,7 +186,7 @@ func setup(
 	pass
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	card=Global.check_parent(self,"Card")
+	card=Global.check_parent_group(self,"Card")
 	setup()
 	detect.timer.start(1)
 	pass

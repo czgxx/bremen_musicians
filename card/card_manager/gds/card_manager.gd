@@ -310,14 +310,7 @@ func _on_card_timeout(card:Card):
 static func spawn_card(num:int,suit:CardData.SUIT):
 	var card:Card=Global.CARD.instantiate()
 	card.card_data.card_name="card_"+str(CardData.SUIT.keys()[suit])+str(num)
-	#card.card_face.card_num=num
-	#card.card_face.card_suit=suit
-	#card.z_index=color+num*4
-	#connect_card_signal(card)
 	card_all.append(card)
-	#card_max_z=get_card_max_z_index(card_all)
-	#print(card_max_z.card_data.card_name)
-	#print(card_max_z.z_index)
 	return card
 	pass
 

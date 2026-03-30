@@ -7,10 +7,18 @@ class_name CardData
 		card_name=value
 		changed.emit("card_name",value,card_name)
 
-
-@export var card_num:int:
+# ========== 卡片尺寸 ==========
+@export_category("📐 卡片尺寸")
+@export var card_size: Vector2 = Vector2(64, 96):
 	set(value):
-		card_num=clampi(value,3,17)
+		card_size=value
+		card_front.card_size=value
+		card_back.card_size=value
+
+enum NUM {N3,N4,N5,N6,N7,N8,N9,N10,Nj,Nq,Nk,Na,N2,Ng,NG}
+@export var card_num:NUM:
+	set(value):
+		card_num=clampi(value,NUM.N3,NUM.NG)
 
 enum SUIT {SPADE,HEART,CLUB,DIAMOND}
 @export var card_suit:SUIT
@@ -29,5 +37,6 @@ enum SUIT {SPADE,HEART,CLUB,DIAMOND}
 var neighbor:Array[Card]
 var is_top_card:bool=false
 var is_face_up:bool=true
+var is_on_table:bool=true
 enum STATE {IDEAL,HOVER_ON,MOVE,}
 var state:STATE=STATE.IDEAL

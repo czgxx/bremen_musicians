@@ -30,7 +30,7 @@ func _init(name:String="CardHighLight"):
 func _ready() -> void:
 	
 	SignalBus.top_card_changed.connect(_on_top_card_changed)
-	card=Global.check_parent(self,"Card")
+	card=Global.check_parent_group(self,"Card")
 	if(card != null):
 		card_scale_dly=card.scale
 		card_z_index_dly=card.z_index

@@ -18,18 +18,18 @@ func add_card(card: Card) -> void:
 	# 触发加入时的逻辑
 	on_card_added(card)
 	#update_ui()
-func on_card_added(card:Card):
+func on_card_added(card:Card)->void:
 	sort_cards_by_z_index()
 	pass
 # 按 z_index 从小到大排序（数字越大越靠上）
-func sort_cards_by_z_index():
+func sort_cards_by_z_index()->void:
 	#_deck.sort_custom(func(a, b): return a.z_index < b.z_index)
 	
 	# 按顺序重新赋值
 	for i in range(_deck.size()):
 		_deck[i].z_index = i
 	for card:Card in _deck:
-		card.name=(card.card_face.SUIT.keys()[card.card_data.card_suit]+
+		card.name=(card.card_data.SUIT.keys()[card.card_data.card_suit]+
 		str(card.card_data.card_num)+"+z_index="+
 		str(card.z_index)
 		)

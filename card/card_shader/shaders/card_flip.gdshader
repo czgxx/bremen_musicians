@@ -91,6 +91,7 @@ vec2 flip_vertex(){
 }
 void vertex() {
 	vertex_xy=VERTEX;
+	//VERTEX.y-=10.;
 	//if(VERTEX.y<0.){
 		//VERTEX=VERTEX+vec2(20.,20.);
 	//}

@@ -1,3 +1,5 @@
+CanvasLayer
+Button
 AnimationTree
 Sprite2D
 Marker2D
@@ -6,10 +8,7 @@ CanvasGroup
 SubViewport
 AnimationPlayer
 Node
-CanvasLayer
 CardFan
 Camera2D
 Control
-Button
 Label
-ColorRect

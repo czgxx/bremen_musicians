@@ -17,7 +17,7 @@ func attract():
 	pass
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	card=Global.check_parent(self,"Card")
+	card=Global.check_parent_group(self,"Card")
 	pass # Replace with function body.
 
 
