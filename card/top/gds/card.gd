@@ -4,6 +4,7 @@ class_name Card
 @export var card_data:CardData=CardData.new()
 @onready var card_animation: CardAnimation = $CardAnimation
 @onready var card_movement: CardMovement = $CardMovement
+@onready var state: Label = $State
 
 #@onready var card_animation: AnimationPlayer = $CardAnimation
 func fsm():
@@ -18,9 +19,7 @@ func fsm():
 			elif(Input.is_action_pressed("mouse_left")):
 				card_data.state=CardData.STATE.MOVE
 		CardData.STATE.MOVE:
-			if(not card_data.is_top_card):
-				card_data.state=CardData.STATE.IDEAL
-			elif(Input.is_action_just_released("mouse_left")):
+			if(Input.is_action_just_released("mouse_left")):
 				card_data.state=CardData.STATE.HOVER_ON
 	pass
 func add_sprite(name,texture,position:=Vector2(0,0)):
@@ -50,10 +49,6 @@ func _ready() -> void:
 	#add_label("Label","6",Vector2(15,0))
 	#card_state.auto_hover=true
 	pass # Replace with function body.
-func _card_data_changed(property_name, old_value, new_value):
-	if property_name=="card_name":
-		self.name=card_data.card_name
-	print("_card_data_changed")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -61,6 +56,10 @@ func _physics_process(delta: float) -> void:
 	fsm()
 	if Input.is_action_just_pressed("ui_accept"):
 		add_label("Label",str(randi()% 10),Vector2(10,10))
+	if card_data.state==CardData.STATE.MOVE:
+		move_to(get_global_mouse_position()-card_data.card_size/2)
+	#if card_data.state==CardData.STATE.HOVER_ON:
+		#card_animation.play("hover")
 	#card_face_or_back()
 	#card_state.fliping=true
 	pass
@@ -113,10 +112,34 @@ func draw_to(face_up:bool=true):
 #region all signal
 func connect_signal():
 	card_data.changed.connect(_card_data_changed)
+	card_data.state_changed.connect(_card_state_changed)
 	SignalBus.top_card_changed.connect(_on_top_card_changed)
 
 	pass
+func _card_data_changed(property_name, old_value, new_value):
+	if property_name=="card_name":
+		self.name=card_data.card_name
+	print("_card_data_changed")
 	
+func _card_state_changed(state_old:CardData.STATE,state_new:CardData.STATE) -> void:
+	match (state_old):
+		CardData.STATE.IDEAL:
+			match (state_new):
+				CardData.STATE.HOVER_ON:
+					move_to(self.global_position+Vector2(0,-20))
+					pass
+				CardData.STATE.MOVE:
+					
+					pass
+		CardData.STATE.HOVER_ON:
+			match (state_new):
+				CardData.STATE.IDEAL:
+					move_to(self.global_position+Vector2(0,20))
+					pass
+				CardData.STATE.MOVE:
+					
+					pass
+	pass
 func _on_top_card_changed(card):
 	if self==card:
 		card_data.is_top_card=true

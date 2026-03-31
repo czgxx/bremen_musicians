@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://otsq7f7lpgfj" path="res://card/card_image/scenes/card_image.tscn" id="6_f2e62"]
 [ext_resource type="Texture2D" uid="uid://cxkp53d62jcyd" path="res://card/card_image/sprites/card_front.png" id="6_w042b"]
 [ext_resource type="PackedScene" uid="uid://nx7nojesearx" path="res://components/movement/scenes/card_movement.tscn" id="7_w042b"]
+[ext_resource type="Script" uid="uid://bj55kqgvjb4y6" path="res://card/top/gds/state.gd" id="8_kijaa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bg1x5"]
 size = Vector2(64, 96)
@@ -222,6 +223,14 @@ material = SubResource("ShaderMaterial_bv3in")
 anim_player = NodePath("../CardAnimation")
 
 [node name="CardMovement" parent="." unique_id=1684781641 instance=ExtResource("7_w042b")]
+
+[node name="State" type="Label" parent="." unique_id=1179811615]
+modulate = Color(0.29411766, 0.13333334, 1, 1)
+offset_left = 22.0
+offset_top = 1.0
+offset_right = 62.0
+offset_bottom = 24.0
+script = ExtResource("8_kijaa")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

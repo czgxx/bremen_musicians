@@ -78,11 +78,11 @@ func move_process():
 		pos_inc=direction*speed*get_physics_process_delta_time()
 		if diff.length()>pos_inc.length():
 			result=pos_src+pos_inc
-			result=result.clamp(pos_des-card.card_data.card_size/2,pos_des+card.card_data.card_size/2)
+			result=result.clamp(pos_des-card.card_data.card_size/4,pos_des+card.card_data.card_size/4)
 			result=Global.limit_to_camera(result,card.card_data.card_size)
 		else:
 			result=pos_des
-			
+		
 		card.global_position=result
 
 	return result

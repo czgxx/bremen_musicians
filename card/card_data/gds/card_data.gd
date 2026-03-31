@@ -39,4 +39,9 @@ var is_top_card:bool=false
 var is_face_up:bool=true
 var is_on_table:bool=true
 enum STATE {IDEAL,HOVER_ON,MOVE,}
-var state:STATE=STATE.IDEAL
+signal state_changed
+var state:STATE=STATE.IDEAL:
+	set(value):
+		if state!=value:
+			state_changed.emit(state,value)
+			state=value

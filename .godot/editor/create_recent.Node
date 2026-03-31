@@ -1,3 +1,4 @@
+Label
 CanvasLayer
 Button
 AnimationTree
@@ -11,4 +12,3 @@ Node
 CardFan
 Camera2D
 Control
-Label
