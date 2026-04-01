@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://p4ogag7h054w"]
-
-[ext_resource type="Script" uid="uid://blnbiluhv1aoh" path="res://gd/magnetism.gd" id="1_dofl0"]
-
-[node name="Magnetism" type="Node2D" unique_id=1662686945]
-script = ExtResource("1_dofl0")

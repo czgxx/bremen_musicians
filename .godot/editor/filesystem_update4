@@ -1,12 +1,9 @@
-res://deck/scenes/card_deck.tscn
+res://card/top/scenes/card.tscn
 res://card/card_shader/shaders/card_flip.gdshader
 res://card/card_shader/shaders/card_front_flip.gdshader
 res://shaders/my_first_shader.gdshader
 res://shaders/card.gdshader
 res://shaders/shader_flip.gdshader
 res://card/card_shader/shaders/card_back_flip.gdshader
-res://card/card_data/gds/card_data.gd
-res://card/top/gds/card.gd
-res://card/top/scenes/card.tscn
-res://card/top/gds/state.gd
-res://components/movement/gds/card_movement.gd
+res://components/magnetic/gds/magnetism.gd
+res://components/magnetic/scenes/tb_magnetism.tscn
