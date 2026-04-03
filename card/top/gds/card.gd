@@ -62,6 +62,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	state.text=CardState.State.keys()[card_state_machine.current_state.state]
 	fsm()
+	#_show_self()
 	if Input.is_action_just_pressed("ui_accept"):
 		add_label("Label",str(randi()% 10),Vector2(10,10))
 	#if card_data.state==CardData.STATE.MOVE:
@@ -132,6 +133,8 @@ func _card_data_changed(property_name, old_value, new_value):
 		pass
 	if property_name=="card_num":
 		self.card_image.change_num(card_data.card_num)
+	if property_name=="neighbor":
+		_show_self()
 	print("_card_data_changed")
 	
 func _card_state_changed(state_old:CardData.STATE,state_new:CardData.STATE) -> void:
@@ -159,7 +162,18 @@ func _input(event: InputEvent) -> void:
 				pass
 			#else:
 				#card_animation.play_backwards("draw")
-
+func _show_self():
+	
+	for card_nearby:Card in card_data.neighbor:
+		#print("_show_self")
+		if card_nearby.global_position.x<self.global_position.x:
+			
+			if card_nearby.z_index>self.z_index:
+				#print("_show_self")
+				var z_index_tmp:int=card_nearby.z_index
+				card_nearby.z_index=self.z_index
+				self.z_index=z_index_tmp
+	pass
 #region area_2d signal
 signal area_entered
 signal area_exited
@@ -183,22 +197,24 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	emit_signal("area_entered",self,area)
 	SignalBus.card_area_entered.emit(self,area)
-	var card:Card=Global.find_parent_in_group(self,"Card")
+	var card:Card=Global.find_parent_in_group(area,"Card")
 	if card == null:
 		return 
 	else:
-		card_data.neighbor.append(card)
-	#print(card_enter.name)
+		#card_data.neighbor.append(card)
+		card_data.add_neighbor(card)
+	print(card.name+"dddddddddd")
 	pass # Replace with function body.
 
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	emit_signal("area_exited",self,area)
 	SignalBus.card_area_exited.emit(self,area)
-	var card:Card=Global.find_parent_in_group(self,"Card")
+	var card:Card=Global.find_parent_in_group(area,"Card")
 	if card == null:
 		return 
 	else:
-		card_data.neighbor.erase(card)
+		#card_data.neighbor.erase(card)
+		card_data.remove_neighbor(card)
 	pass # Replace with function body.
 #endregion
 

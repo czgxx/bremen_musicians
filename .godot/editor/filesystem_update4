@@ -10,3 +10,12 @@ res://deck/scenes/card_deck.tscn
 res://card/card_data/gds/card_data.gd
 res://card/card_manager/gds/card_manager.gd
 res://deck/gds/card_deck.gd
+res://components/magnetic/scenes/tb_magnetism.tscn
+res://components/magnetic/gds/magnetism.gd
+res://components/magnetic/scenes/magnetism.tscn
+res://card/card_machine/scenes/card_state_machine.tscn
+res://card/card_machine/gds/card_base_state.gd
+res://card/top/gds/tb_card.gd
+res://card/card_machine/gds/move.gd
+res://components/magnetic/gds/force.gd
+res://components/magnetic/gds/magnetic.gd

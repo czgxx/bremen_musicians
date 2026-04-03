@@ -39,6 +39,14 @@ enum SUIT {SPADE,HEART,CLUB,DIAMOND}
 	#"back"  = CardImageData.new(),
 #}
 var neighbor:Array[Card]
+var neighbor_left:Array[Card]
+var neighbor_right:Array[Card]
+func add_neighbor(card:Card):
+	neighbor.append(card)
+	changed.emit("neighbor",neighbor,neighbor)
+func remove_neighbor(card:Card):
+	neighbor.erase(card)
+	changed.emit("neighbor",neighbor,neighbor)
 var is_top_card:bool=false
 var is_face_up:bool=true
 var is_on_table:bool=true

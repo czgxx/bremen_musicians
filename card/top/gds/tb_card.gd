@@ -12,8 +12,8 @@ func _input(event: InputEvent) -> void:
 	pass
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	card.move_to(Vector2(30,55))
-	card_2.move_to(Vector2(80,39))
+	#card.move_to(Vector2(30,55))
+	#card_2.move_to(Vector2(80,39))
 	pass # Replace with function body.
 
 

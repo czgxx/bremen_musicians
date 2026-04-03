@@ -56,7 +56,7 @@ func _init() -> void:
 		#current_camera.zoom=current_camera.zoom.clamp(Vector2(1,1)-step_camera_zoom*max_cnt_wheel,Vector2(1,1)+step_camera_zoom*max_cnt_wheel)
 	#print("cnt_wheel"+str(cnt_wheel))
 func create_deck() -> void:
-	spawn_deck(20)
+	spawn_deck(4)
 	for card:Card in get_cards():
 		add_child(card)
 		card.move_to(self.global_position+card.get_index()*Vector2(0.1,-0.1))
