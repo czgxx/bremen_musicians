@@ -1,3 +1,5 @@
+Node
+Control
 Label
 CanvasLayer
 Button
@@ -8,7 +10,5 @@ Node2D
 CanvasGroup
 SubViewport
 AnimationPlayer
-Node
 CardFan
 Camera2D
-Control

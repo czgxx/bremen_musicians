@@ -5,6 +5,7 @@ class_name Card
 @onready var card_animation: CardAnimation = $CardAnimation
 @onready var card_movement: CardMovement = $CardMovement
 @onready var state: Label = $State
+@onready var card_state_machine: CardStateMachine = $CardStateMachine
 
 #@onready var card_animation: AnimationPlayer = $CardAnimation
 func fsm():
@@ -38,10 +39,11 @@ func add_label(name,text,position:=Vector2(0,0)):
 	card_data.card_front.add_label(new_label)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	card_state_machine.init(self)
 	connect_signal()
 	fsm()
 	#card_data.card_name="czg"
-	move_to(Vector2(10,10))
+	#move_to(Vector2(10,10))
 	#flip_to(false)
 	#flip_to(true)
 	#draw_to(false)
@@ -53,11 +55,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	state.text=CardState.State.keys()[card_state_machine.current_state.state]
 	fsm()
 	if Input.is_action_just_pressed("ui_accept"):
 		add_label("Label",str(randi()% 10),Vector2(10,10))
-	if card_data.state==CardData.STATE.MOVE:
-		move_to(get_global_mouse_position()-card_data.card_size/2)
+	#if card_data.state==CardData.STATE.MOVE:
+		#move_to(get_global_mouse_position()-card_data.card_size/2)
 	#if card_data.state==CardData.STATE.HOVER_ON:
 		#card_animation.play("hover")
 	#card_face_or_back()
@@ -122,37 +125,28 @@ func _card_data_changed(property_name, old_value, new_value):
 	print("_card_data_changed")
 	
 func _card_state_changed(state_old:CardData.STATE,state_new:CardData.STATE) -> void:
-	match (state_old):
-		CardData.STATE.IDEAL:
-			match (state_new):
-				CardData.STATE.HOVER_ON:
-					move_to(self.global_position+Vector2(0,-20))
-					pass
-				CardData.STATE.MOVE:
-					
-					pass
-		CardData.STATE.HOVER_ON:
-			match (state_new):
-				CardData.STATE.IDEAL:
-					move_to(self.global_position+Vector2(0,20))
-					pass
-				CardData.STATE.MOVE:
-					
-					pass
+
 	pass
 func _on_top_card_changed(card):
 	if self==card:
+		#print("on_mouse_entered ")
 		card_data.is_top_card=true
+		card_state_machine.on_mouse_entered()
 		#card_animation.play("hover")
 	else:
+		#print("on_mouse_exited ")
 		card_data.is_top_card=false
+		card_state_machine.on_mouse_exited()
 		#card_animation.play_backwards("hover")
 	pass
 func _input(event: InputEvent) -> void:
+	
+	card_state_machine.on_input(event)
 	if event is InputEventMouseButton :
 		if event.button_index == MOUSE_BUTTON_LEFT and card_data.is_top_card:
 			if event.pressed:
-				card_animation.play("draw")
+				#card_animation.play("draw")
+				pass
 			#else:
 				#card_animation.play_backwards("draw")
 

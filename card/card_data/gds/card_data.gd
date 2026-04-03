@@ -38,6 +38,7 @@ var neighbor:Array[Card]
 var is_top_card:bool=false
 var is_face_up:bool=true
 var is_on_table:bool=true
+enum LOCALTION {TABLE,HAND,}
 enum STATE {IDEAL,HOVER_ON,MOVE,}
 signal state_changed
 var state:STATE=STATE.IDEAL:

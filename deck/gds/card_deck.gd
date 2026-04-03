@@ -103,13 +103,8 @@ pass
 func _ready() -> void:
 	connect_signalbus()
 	create_deck()
-	current_camera = get_viewport().get_camera_2d()
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func connect_signalbus():
 	#SignalBus.card_area_input_event.connect(_on_card_area_input_event)
@@ -123,9 +118,3 @@ func connect_signalbus():
 						##pick_card()
 						#pass
 	#pass
-
-
-
-func _on_button_button_down() -> void:
-	pick_card()
-	pass # Replace with function body.
