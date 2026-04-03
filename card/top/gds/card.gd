@@ -4,6 +4,8 @@ class_name Card
 @export var card_data:CardData=CardData.new()
 @onready var card_animation: CardAnimation = $CardAnimation
 @onready var card_movement: CardMovement = $CardMovement
+@onready var card_image: CardImage = $CardImage
+
 @onready var state: Label = $State
 @onready var card_state_machine: CardStateMachine = $CardStateMachine
 
@@ -42,7 +44,10 @@ func _ready() -> void:
 	card_state_machine.init(self)
 	connect_signal()
 	fsm()
-	#card_data.card_name="czg"
+	card_data.is_face_up=false
+	card_data.card_name="czg"
+	card_data.card_suit=CardData.SUIT.SPADE
+	card_data.card_num=CardData.NUM.N3
 	#move_to(Vector2(10,10))
 	#flip_to(false)
 	#flip_to(true)
@@ -122,6 +127,11 @@ func connect_signal():
 func _card_data_changed(property_name, old_value, new_value):
 	if property_name=="card_name":
 		self.name=card_data.card_name
+	if property_name=="card_suit":
+		self.card_image.change_suit(card_data.card_suit)
+		pass
+	if property_name=="card_num":
+		self.card_image.change_num(card_data.card_num)
 	print("_card_data_changed")
 	
 func _card_state_changed(state_old:CardData.STATE,state_new:CardData.STATE) -> void:

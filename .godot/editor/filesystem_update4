@@ -1,11 +1,12 @@
-res://card/card_machine/scenes/card_state_machine.tscn
+res://card/top/scenes/card.tscn
 res://card/card_shader/shaders/card_flip.gdshader
 res://card/card_shader/shaders/card_front_flip.gdshader
 res://shaders/my_first_shader.gdshader
 res://shaders/card.gdshader
 res://shaders/shader_flip.gdshader
 res://card/card_shader/shaders/card_back_flip.gdshader
-res://card/hover.gd
-res://card/card_machine/gds/move.gd
-res://card/top/scenes/card.tscn
 res://card/top/gds/card.gd
+res://deck/scenes/card_deck.tscn
+res://card/card_data/gds/card_data.gd
+res://card/card_manager/gds/card_manager.gd
+res://deck/gds/card_deck.gd

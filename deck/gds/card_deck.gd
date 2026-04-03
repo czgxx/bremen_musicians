@@ -87,13 +87,13 @@ func hide_card(card:Card, card_index:int=get_cards().size()-1)->void:
 	pass
 @rpc("any_peer", "call_local", "reliable")
 func spawn_deck(num:int=54):
-	var card_new= CardManager.spawn_card(CardData.NUM.NG,CardData.SUIT.SPADE)
+	var card_new= CardManager.spawn_card(self,CardData.NUM.NG,CardData.SUIT.SPADE)
 	add_card(card_new)
-	card_new= CardManager.spawn_card(CardData.NUM.Ng,CardData.SUIT.HEART)
+	card_new= CardManager.spawn_card(self,CardData.NUM.Ng,CardData.SUIT.HEART)
 	add_card(card_new)
 	for i in 13:
 		for j in 4:
-			card_new= CardManager.spawn_card(i,j)
+			card_new= CardManager.spawn_card(self,i,j)
 			add_card(card_new)
 		pass
 	pass

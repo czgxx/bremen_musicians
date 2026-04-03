@@ -2,7 +2,7 @@ extends CardBack
 class_name CardFront
 
 @onready var suit: Sprite2D = $Suit
-@onready var label: Label = $Label
+@onready var num: Label = $Num
 
 
 #signal texture_ready(node,texture:Texture2D)
@@ -76,7 +76,7 @@ func _ready() -> void:
 		
 		card_image_data.add_image(background)
 		card_image_data.add_image(suit)
-		card_image_data.add_label(label)
+		card_image_data.add_label(num)
 		card_image_data.changed.connect(_card_image_data_changed)
 		save_texture()
 	

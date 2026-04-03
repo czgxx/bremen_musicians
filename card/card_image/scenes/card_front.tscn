@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dyab372r32gpl" path="res://card/card_image/gds/card_front.gd" id="2_logpp"]
 [ext_resource type="Texture2D" uid="uid://cxkp53d62jcyd" path="res://card/card_image/sprites/card_front.png" id="2_t4jed"]
 [ext_resource type="Texture2D" uid="uid://rtlegyqdix1a" path="res://sprites/card_face.png" id="3_t4jed"]
-[ext_resource type="Texture2D" uid="uid://cm4i248sdgfjk" path="res://card/card_image/sprites/card_suit2.png" id="5_57ej5"]
+[ext_resource type="Texture2D" uid="uid://cm4i248sdgfjk" path="res://card/card_image/sprites/card_suit1.png" id="5_57ej5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oq42u"]
 shader = ExtResource("1_2nji2")
@@ -29,7 +29,7 @@ position = Vector2(4, 23)
 texture = ExtResource("5_57ej5")
 centered = false
 
-[node name="Label" type="Label" parent="." unique_id=517823413]
+[node name="Num" type="Label" parent="." unique_id=517823413]
 modulate = Color(0, 0, 0, 1)
 offset_left = 7.0
 offset_top = 1.0

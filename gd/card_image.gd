@@ -1,5 +1,5 @@
 extends Node2D
-class_name CardImage
+#class_name CardImage
 @onready var label: Label = %Label
 @onready var background: Sprite2D = %Sprite2DFront
 @onready var sprite_2d_back: Sprite2D = %Sprite2DBack

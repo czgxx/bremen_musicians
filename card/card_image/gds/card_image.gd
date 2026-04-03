@@ -1,4 +1,5 @@
 extends Node
+class_name CardImage
 #@onready var card_front: CardFront = $CardFront
 #@onready var card_back: CardBack = $CardBack
 #var card_front_tex:Texture2D
@@ -47,3 +48,8 @@ func _show_face():
 	else:
 		card_front.visible=false
 		card_back.visible=true
+func change_suit(suit:CardData.SUIT):
+	card_front.suit.texture=load("res://card/card_image/sprites/card_suit"+
+	str(suit)+".png")
+func change_num(num:int):
+	card_front.num.text=str(num)

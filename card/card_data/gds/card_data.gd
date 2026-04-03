@@ -15,13 +15,17 @@ class_name CardData
 		card_front.card_size=value
 		card_back.card_size=value
 
-enum NUM {N3,N4,N5,N6,N7,N8,N9,N10,Nj,Nq,Nk,Na,N2,Ng,NG}
-@export var card_num:NUM:
+enum NUM {N3=3,N4,N5,N6,N7,N8,N9,N10,Nj,Nq,Nk,Na,N2,Ng,NG}
+@export var card_num:NUM=NUM.N3:
 	set(value):
 		card_num=clampi(value,NUM.N3,NUM.NG)
+		changed.emit("card_num",value,card_num)
 
 enum SUIT {SPADE,HEART,CLUB,DIAMOND}
-@export var card_suit:SUIT
+@export var card_suit:SUIT=SUIT.SPADE:
+	set(value):
+		card_suit=value
+		changed.emit("card_suit",value,card_suit)
 @export var card_front:CardImageData= CardImageData.new():
 	set(value):
 		changed.emit("card_front",value,card_front)
