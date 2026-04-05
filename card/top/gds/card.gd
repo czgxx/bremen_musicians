@@ -1,10 +1,13 @@
 
 extends Node2D
 class_name Card
+signal card_be_released(card)
 @export var card_data:CardData=CardData.new()
 @onready var card_animation: CardAnimation = $CardAnimation
 @onready var card_movement: CardMovement = $CardMovement
 @onready var card_image: CardImage = $CardImage
+
+@onready var desc: Label = $Desc
 
 @onready var state: Label = $State
 @onready var card_state_machine: CardStateMachine = $CardStateMachine
@@ -45,7 +48,7 @@ func _ready() -> void:
 	connect_signal()
 	fsm()
 	card_data.is_face_up=false
-	card_data.card_name="czg"
+	#card_data.card_name="czg"
 	card_data.card_suit=CardData.SUIT.SPADE
 	card_data.card_num=CardData.NUM.N3
 	#move_to(Vector2(10,10))
@@ -128,6 +131,7 @@ func connect_signal():
 func _card_data_changed(property_name, old_value, new_value):
 	if property_name=="card_name":
 		self.name=card_data.card_name
+		desc.text=self.name
 	if property_name=="card_suit":
 		self.card_image.change_suit(card_data.card_suit)
 		pass

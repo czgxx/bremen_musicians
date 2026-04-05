@@ -307,7 +307,7 @@ func _on_card_timeout(card:Card):
 
 #region card_type
 @rpc("any_peer", "call_local", "reliable")
-static func spawn_card(parent:Node,num:CardData.NUM,suit:CardData.SUIT):
+static func spawn_card(parent:Node,num:CardData.NUM,suit:CardData.SUIT)->Card:
 	var card:Card=Global.CARD.instantiate()
 	parent.add_child(card)
 	card.card_data.card_name="card_"+str(CardData.SUIT.keys()[suit])+str(num)

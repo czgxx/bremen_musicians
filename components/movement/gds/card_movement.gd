@@ -65,6 +65,8 @@ func move_to(to:Vector2):
 		pos_des=to
 	else:
 		pos_des=-to
+		
+	#await state==STATE.OVER
 func move_process():
 	var direction:Vector2
 	#var from:Vector2=self.global_position

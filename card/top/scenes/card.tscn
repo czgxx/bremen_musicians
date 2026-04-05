@@ -235,6 +235,14 @@ offset_right = 52.0
 offset_bottom = 67.0
 script = ExtResource("8_kijaa")
 
+[node name="Desc" type="Label" parent="." unique_id=1497407033]
+modulate = Color(0.29411766, 0.13333334, 1, 1)
+offset_left = 21.0
+offset_top = 3.0
+offset_right = 61.0
+offset_bottom = 26.0
+script = ExtResource("8_kijaa")
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

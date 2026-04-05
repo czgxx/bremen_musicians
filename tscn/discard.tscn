@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dwdpist2josfv"]
 
 [ext_resource type="Script" uid="uid://6r1chwq5s6eb" path="res://gd/discard.gd" id="1_0up82"]
-[ext_resource type="PackedScene" uid="uid://dkdcattt5t8xh" path="res://tscn/card_fan.tscn" id="2_0up82"]
+[ext_resource type="PackedScene" uid="uid://dkdcattt5t8xh" path="res://player/hand/scenes/card_fan.tscn" id="2_0up82"]
 
 [node name="Discard" type="Node2D" unique_id=698487624]
 script = ExtResource("1_0up82")
